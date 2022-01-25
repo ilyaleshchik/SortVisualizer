@@ -11,15 +11,14 @@ App::App(int _nScreenWidth, int _nScreenHeight, int _nFieldSize, int _nVisualSpe
 	TIME = 0; fLastTime = 0;
 	bFinished = 0;	
 	bStarted = 0;
-
+	rnd = std::mt19937(time(0));
 	if(!font.loadFromFile("ghotic.ttf")) {
-		std::cerr << "Font load ERROR!!!!!";
-		exit(0);
+		throw 228;
 	}
 	
 	field = new int[nFieldSize];
 	for(int i = 0; i < nFieldSize; i++)
-		field[i] = rand() % 400 + 100;
+		field[i] = rnd() % 400 + 100;
 
 	recField = new RectangleShape[nFieldSize];
 	for(int i = 0; i < nFieldSize; i++) {
@@ -56,7 +55,7 @@ void App::regen() {
 	if (bStarted) return;
 	
 	for(int i = 0; i < nFieldSize; i++)
-		field[i] = rand() % 400 + 100;
+		field[i] = rnd() % 400 + 100;
 
 	for(int i = 0; i < nFieldSize; i++) {
 		recField[i] = RectangleShape(Vector2f(39, field[i]));

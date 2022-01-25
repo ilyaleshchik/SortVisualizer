@@ -1,14 +1,20 @@
 #include "sorting.h"
+#include <iostream>
 using namespace sf;
 
 int main() { 
 
-	srand(time(0));
+	App *g;
+	try {
+		g = new App(800, 800, 20, 100);
+	} 
+	catch (...) {
+		std::cerr << "Build failed!!!";
+		exit(0);
+	}
 
-	App g(800, 800, 20, 100);
-
-	g.init();
-	g.run();
+	g->init();
+	g->run();
 
 	return 0;
 }

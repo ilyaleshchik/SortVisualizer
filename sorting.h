@@ -1,4 +1,6 @@
 #include <SFML/Graphics.hpp>
+#include <random>
+#include <ctime>
 using namespace sf;
 #pragma once
 
@@ -10,7 +12,7 @@ private:
 	int nVisualSpeed = 0;
 	int lstId = 0, mnId = 0, curId = -1;
 	int *field;
-
+	std::mt19937 rnd;
 	bool bStarted, bFinished;
 
 	float TIME = 0, fLastTime = 0;
@@ -29,6 +31,7 @@ private:
 
 
 public:
+	App() {}
 	App(int _nScreenWidth, int _nScreenHeight, int _nFieldSize, int _nVisualSpeed);
 	~App();
 	void init();

@@ -2,8 +2,6 @@
 #include <iostream>
 using namespace sf;
 
-const std::string FONT = "Dongle-Regular.ttf";
-
 App::App(int _nScreenWidth, int _nScreenHeight, int _nFieldSize, int _nVisualSpeed) {
 
 	nScreenHeight = _nScreenHeight;
@@ -19,15 +17,15 @@ App::App(int _nScreenWidth, int _nScreenHeight, int _nFieldSize, int _nVisualSpe
 		exit(0);
 	}
 	
-	field = new myObj[nFieldSize];
+	field = new int[nFieldSize];
 	for(int i = 0; i < nFieldSize; i++)
-		field[i] = myObj();
+		field[i] = rand() % 400 + 100;
 
 	recField = new RectangleShape[nFieldSize];
 	for(int i = 0; i < nFieldSize; i++) {
-		recField[i] = RectangleShape(Vector2f(39, field[i].nVal));
+		recField[i] = RectangleShape(Vector2f(39, field[i]));
 		recField[i].setFillColor(Color(117, 199, 139));
-		recField[i].setPosition(i * 40, 700-field[i].nVal);
+		recField[i].setPosition(i * 40, 700-field[i]);
 	}
 }
 
@@ -58,12 +56,12 @@ void App::regen() {
 	if (bStarted) return;
 	
 	for(int i = 0; i < nFieldSize; i++)
-		field[i] = myObj();
+		field[i] = rand() % 400 + 100;
 
 	for(int i = 0; i < nFieldSize; i++) {
-		recField[i] = RectangleShape(Vector2f(39, field[i].nVal));
+		recField[i] = RectangleShape(Vector2f(39, field[i]));
 		recField[i].setFillColor(Color(117, 199, 139));
-		recField[i].setPosition(i * 40, 700-field[i].nVal);
+		recField[i].setPosition(i * 40, 700-field[i]);
 	}
 	lstId = 0; mnId = 0; curId = -1;
 	bStarted = 0;
@@ -99,7 +97,7 @@ void App::checkNext() {
 	curId++;
 	if(curId == nFieldSize) return;
 	recField[curId].setFillColor(Color(196, 237, 33));
-	if(field[curId].nVal <= field[mnId].nVal) {
+	if(field[curId] <= field[mnId]) {
 		recField[mnId].setFillColor(Color(117, 199, 139));
 		mnId = curId;
 		recField[mnId].setFillColor(Color(222, 126, 169));
@@ -112,8 +110,8 @@ void App::moveMn() {
 		recField[mnId].setFillColor(Color(117, 199, 139));
 		return;
 	}
-	recField[mnId].setPosition(40 * (mnId - 1), 700 - field[mnId].nVal);
-	recField[mnId - 1].setPosition(40 * mnId, 700 - field[mnId - 1].nVal);
+	recField[mnId].setPosition(40 * (mnId - 1), 700 - field[mnId]);
+	recField[mnId - 1].setPosition(40 * mnId, 700 - field[mnId - 1]);
 	std::swap(field[mnId], field[mnId - 1]);
 	std::swap(recField[mnId], recField[mnId - 1]);
 	mnId--;

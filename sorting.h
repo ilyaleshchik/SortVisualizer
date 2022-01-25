@@ -1,6 +1,4 @@
 #include <SFML/Graphics.hpp>
-#include "myobj.h"
-#include <string>
 using namespace sf;
 #pragma once
 
@@ -11,7 +9,7 @@ private:
 	int nFieldSize;
 	int nVisualSpeed = 0;
 	int lstId = 0, mnId = 0, curId = -1;
-	myObj *field;
+	int *field;
 
 	bool bStarted, bFinished;
 

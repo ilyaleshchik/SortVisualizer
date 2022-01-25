@@ -134,11 +134,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\main.cpp" />
-    <ClCompile Include="..\..\myobj.cpp" />
     <ClCompile Include="..\..\sorting.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\myobj.h" />
     <ClInclude Include="..\..\sorting.h" />
   </ItemGroup>
   <ItemGroup>

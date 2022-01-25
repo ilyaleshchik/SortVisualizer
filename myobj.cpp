@@ -5,7 +5,7 @@ using namespace std;
 myObj::myObj() {
 	nHeight = 0;
 
-	nVal = rand() % 300 + 100;
+	nVal = rand() % 500 + 100;
 }
 
 myObj::myObj(int _nHeight, int _nVal) {

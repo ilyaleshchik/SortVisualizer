@@ -2,6 +2,8 @@
 #include <iostream>
 using namespace sf;
 
+const std::string FONT = "Dongle-Regular.ttf";
+
 App::App(int _nScreenWidth, int _nScreenHeight, int _nFieldSize, int _nVisualSpeed) {
 
 	nScreenHeight = _nScreenHeight;
@@ -9,11 +11,12 @@ App::App(int _nScreenWidth, int _nScreenHeight, int _nFieldSize, int _nVisualSpe
 	nFieldSize = _nFieldSize;
 	nVisualSpeed = _nVisualSpeed;
 	TIME = 0; fLastTime = 0;
-	bFinished = 0;
+	bFinished = 0;	
 	bStarted = 0;
 
 	if(!font.loadFromFile("ghotic.ttf")) {
 		std::cerr << "Font load ERROR!!!!!";
+		exit(0);
 	}
 	
 	field = new myObj[nFieldSize];
@@ -52,6 +55,8 @@ void App::run() {
 }
 void App::regen() {
 
+	if (bStarted) return;
+	
 	for(int i = 0; i < nFieldSize; i++)
 		field[i] = myObj();
 
@@ -73,7 +78,7 @@ void App::handleEvent() {
 		else if(ev.type == Event::KeyPressed) {
 			if(ev.key.code == Keyboard::S) 
 				bStarted = 1;
-			else if(ev.key.code == Keyboard::G)
+			else if(ev.key.code == Keyboard::R)
 				regen();
 		}
 	}

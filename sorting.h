@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "myobj.h"
+#include <string>
 using namespace sf;
 #pragma once
 

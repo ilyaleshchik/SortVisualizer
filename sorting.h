@@ -12,8 +12,11 @@ private:
 	int nVisualSpeed = 0;
 	int lstId = 0, mnId = 0, curId = -1;
 	int *field;
+	int way;
 	std::mt19937 rnd;
 	bool bStarted, bFinished;
+	
+	std::string fontName;
 
 	float TIME = 0, fLastTime = 0;
 	Clock clock;
@@ -27,12 +30,12 @@ private:
 	void updateTime();
 	void checkNext();
 	void moveMn();
-	void regen();
+	void regen(bool isPermutation);
 
 
 public:
 	App() {}
-	App(int _nScreenWidth, int _nScreenHeight, int _nFieldSize, int _nVisualSpeed);
+	App(int _nScreenWidth, int _nScreenHeight, int _nFieldSize, int _nVisualSpeed, std::string _fontName);
 	~App();
 	void init();
 	void run();

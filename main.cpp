@@ -4,16 +4,15 @@ using namespace sf;
 
 int main() { 
 
-	App *g;
-	try {
-		g = new App(800, 800, 20, 100);
-	} 
-	catch (...) {
-		std::cerr << "Build failed!!!";
-		exit(0);
-	}
+	App *g = new App(800, 800, 20, 100, "ghotic.ttf"); 
 
-	g->init();
+	try {
+		g->init();
+	}
+	catch (...) {
+		std::cerr << "Initialization failed!";
+		return 0;
+	}
 	g->run();
 
 	return 0;

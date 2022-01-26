@@ -2,19 +2,17 @@
 #include <iostream>
 using namespace sf;
 
-App::App(int _nScreenWidth, int _nScreenHeight, int _nFieldSize, int _nVisualSpeed) {
+App::App(int _nScreenWidth, int _nScreenHeight, int _nFieldSize, int _nVisualSpeed, std::string _fontName) {
 
 	nScreenHeight = _nScreenHeight;
 	nScreenWidth = _nScreenWidth;
 	nFieldSize = _nFieldSize;
 	nVisualSpeed = _nVisualSpeed;
-	TIME = 0; fLastTime = 0;
+	TIME = 0; fLastTime = 0; way = 1;
 	bFinished = 0;	
 	bStarted = 0;
 	rnd = std::mt19937(time(0));
-	if(!font.loadFromFile("ghotic.ttf")) {
-		throw 228;
-	}
+	fontName = _fontName;
 	
 	field = new int[nFieldSize];
 	for(int i = 0; i < nFieldSize; i++)
@@ -36,7 +34,10 @@ App::~App() {
 
 void App::init() {
 	//initialize
-	window = new RenderWindow(VideoMode(nScreenWidth, nScreenHeight), "BFS");
+	window = new RenderWindow(VideoMode(nScreenWidth, nScreenHeight), "Sort");
+	if (!font.loadFromFile(fontName)) {
+		throw 228;
+	}
 }
 
 void App::run() {
@@ -50,12 +51,15 @@ void App::run() {
 	}
 
 }
-void App::regen() {
+void App::regen(bool isPermutation = 0) {
 
 	if (bStarted) return;
-	
-	for(int i = 0; i < nFieldSize; i++)
-		field[i] = rnd() % 400 + 100;
+	if (isPermutation) {
+		for (int i = 0; i < nFieldSize; i++) field[i] = (i + 1) * 25;
+		std::shuffle(field, field + nFieldSize, rnd);
+	}else
+		for(int i = 0; i < nFieldSize; i++)
+			field[i] = rnd() % 401 + 100;
 
 	for(int i = 0; i < nFieldSize; i++) {
 		recField[i] = RectangleShape(Vector2f(39, field[i]));
@@ -77,6 +81,11 @@ void App::handleEvent() {
 				bStarted = 1;
 			else if(ev.key.code == Keyboard::R)
 				regen();
+			else if (ev.key.code == Keyboard::C && !bStarted) {
+				way ^= 1;
+			}
+			else if (ev.key.code == Keyboard::P)
+				regen(1);
 		}
 	}
 }
@@ -90,13 +99,18 @@ void App::updateTime() {
 
 
 void App::checkNext() {
-	
-	if(curId != lstId - 1 && curId != mnId)
+
+	if (curId != lstId - 1 && curId != mnId)
 		recField[curId].setFillColor(Color(117, 199, 139));
 	curId++;
-	if(curId == nFieldSize) return;
+	if (curId == nFieldSize) return;
 	recField[curId].setFillColor(Color(196, 237, 33));
-	if(field[curId] <= field[mnId]) {
+	if (field[curId] <= field[mnId] && way) {
+		recField[mnId].setFillColor(Color(117, 199, 139));
+		mnId = curId;
+		recField[mnId].setFillColor(Color(222, 126, 169));
+	}
+	else if (field[curId] >= field[mnId] && !way) {
 		recField[mnId].setFillColor(Color(117, 199, 139));
 		mnId = curId;
 		recField[mnId].setFillColor(Color(222, 126, 169));
@@ -121,6 +135,12 @@ void App::update() {
 	//sort alogithm
 	TIME = 0;
 	if(lstId == nFieldSize) {
+		for (int i = 0; i < nFieldSize; i++) {
+			recField[i] = RectangleShape(Vector2f(39, field[i]));
+			recField[i].setFillColor(Color(117, 199, 139));
+			recField[i].setPosition(i * 40, 700 - field[i]);
+		}
+		lstId = 0; mnId = 0; curId = -1;
 		bStarted = 0;
 		return;
 	}
@@ -144,7 +164,7 @@ void App::render() {
 	Text rules;
 
 	rules.setFont(font);
-	rules.setString("S - start\nR - regenerate numbers");
+	rules.setString("S - start\nR - regenerate numbers\nP - shuffle permutaion\nC - change sort order");
 	rules.setCharacterSize(16);
 	rules.setFillColor(Color::Black);
 	

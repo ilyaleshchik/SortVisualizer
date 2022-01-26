@@ -1,0 +1,21 @@
+﻿  main.cpp
+d:\1programming\c++\sfml\sortvisualizer\main.cpp(6): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  sorting.cpp
+d:\1programming\c++\sfml\sortvisualizer\sorting.cpp(26): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\1programming\c++\sfml\sortvisualizer\sorting.cpp(28): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\1programming\c++\sfml\sortvisualizer\sorting.cpp(62): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\1programming\c++\sfml\sortvisualizer\sorting.cpp(64): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\1programming\c++\sfml\sortvisualizer\sorting.cpp(87): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
+d:\1programming\c++\sfml\sortvisualizer\sorting.cpp(89): warning C4244: +=: преобразование "double" в "float", возможна потеря данных
+d:\1programming\c++\sfml\sortvisualizer\sorting.cpp(113): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\1programming\c++\sfml\sortvisualizer\sorting.cpp(114): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  Создание кода...
+  SV.vcxproj -> D:\1PROGRAMMING\c++\SFML\SortVisualizer\SV\Debug\SV.exe
